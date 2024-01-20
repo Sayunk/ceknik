@@ -1,1 +1,1 @@
-web: gunicorn ceknik:app --log-file -
+web: python ceknik.py

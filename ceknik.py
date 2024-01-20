@@ -20,9 +20,20 @@ def cek_dpt():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(options=options)
+    
+    # Menentukan path untuk log ChromeDriver
+    service_log_path = "chromedriver.log"
+    service_args = ["--verbose", "--log-path={}".format(service_log_path)]
+    
+    # Membuat instance Chrome WebDriver dengan opsi yang sudah ditentukan
+    driver = webdriver.Chrome(options=options, service_args=service_args)
+
+
 
     try:
+        with open(service_log_path, "r") as log_file:
+            print(log_file.read())
+
         driver.get(website)
         pencarian = driver.find_element(By.XPATH, '//input[@class="form-control is-valid"]')
         pencarian.clear()
@@ -69,4 +80,4 @@ def cek_dpt():
         driver.quit()
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
